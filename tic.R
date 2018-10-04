@@ -20,7 +20,7 @@ if (Sys.getenv("RCMDCHECK") == "TRUE") {
     add_code_step(devtools::document()) %>%
     # manual approch until https://github.com/r-lib/rcmdcheck/issues/83#issuecomment-424314978 is solved
     add_code_step(devtools::build(manual = TRUE)) %>%
-    add_code_step(rcmdcheck::rcmdcheck(path = "../mlr_2.13.9000.tar.gz", args = "--as-cran",
+    add_code_step(rcmdcheck::rcmdcheck(path = "../mlr_2.13.9000.tar.gz", args = c("--as-cran", "--no-tests"),
                                        error_on = "error"))
 
   if (!Sys.getenv("TRAVIS_EVENT_TYPE") == "cron") {
