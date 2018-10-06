@@ -22,8 +22,6 @@ One of the cooler algorithms is iterated F-racing from the `irace::irace()` pack
 This not only works for arbitrary parameter types (numeric, integer, discrete, logical), but also for so-called dependent / hierarchical parameters:
 
 ```{r}
-set.seed(555666, kind = "L'Ecuyer-CMRG")
-
 ps = makeParamSet(
   makeNumericParam("C", lower = -12, upper = 12, trafo = function(x) 2^x),
   makeDiscreteParam("kernel", values = c("vanilladot", "polydot", "rbfdot")),
@@ -60,7 +58,7 @@ Function `makeModelMultiplexerParamSet()` offers a simple way to construct a par
 The parameter names are prefixed automatically and the `requires` element is set, too, to make all parameters subordinate to `selected.learner`.
 
 ```{r}
-set.seed(555666)
+
 
 ps = makeModelMultiplexerParamSet(lrn,
   makeNumericParam("sigma", lower = -12, upper = 12, trafo = function(x) 2^x),
@@ -86,7 +84,7 @@ As search strategy we choose a random search.
 For all available multi-criteria tuning algorithms see `TuneMultiCritControl()`.
 
 ```{r}
-set.seed(555666)
+
 
 ps = makeParamSet(
   makeNumericParam("C", lower = -12, upper = 12, trafo = function(x) 2^x),
