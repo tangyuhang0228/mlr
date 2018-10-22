@@ -11,7 +11,7 @@ vignette: >
 library("mlr")
 library("BBmisc")
 library("ParamHelpers")
-urlMlrFunctions = "https://mlr-org.github.io/mlr/reference/"
+urlMlrFunctions = "https://mlr.mlr-org.com/reference/index.html"
 ext = ".html"
 library("pander")
 
