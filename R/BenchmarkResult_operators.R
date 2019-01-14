@@ -93,7 +93,7 @@ getBMRObjects = function(bmr, task.ids = NULL, learner.ids = NULL, fun, as.df = 
   else
     assertSubset(task.ids, brtids)
   if (is.null(learner.ids))
-    learner.ids = brlids
+    learner.ids = unique(brlids)
   else
     assertSubset(learner.ids, brlids)
   res = lapply(task.ids, function(tid) {
