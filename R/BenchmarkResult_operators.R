@@ -87,7 +87,7 @@ getBMRMeasureIds = function(bmr) {
 getBMRObjects = function(bmr, task.ids = NULL, learner.ids = NULL, fun, as.df = FALSE, drop = FALSE) {
   assertClass(bmr, "BenchmarkResult")
   brtids = getBMRTaskIds(bmr)
-  brlids = getBMRLearnerIds(bmr)
+  brlids = unique(getBMRLearnerIds(bmr))
   if (is.null(task.ids))
     task.ids = brtids
   else

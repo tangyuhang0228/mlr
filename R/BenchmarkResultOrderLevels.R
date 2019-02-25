@@ -19,8 +19,8 @@ orderBMRLrns = function(bmr, df = NULL, order.lrns){
   if (is.null(df))
     df = as.data.frame(bmr)
   if (!is.null(order.lrns)) {
-    assertCharacter(order.lrns, len = length(getBMRLearnerIds(bmr)))
-    assertSetEqual(order.lrns, getBMRLearnerIds(bmr), ordered = FALSE)
+    assertCharacter(order.lrns, len = length(unique(getBMRLearnerIds(bmr))))
+    assertSetEqual(order.lrns, unique(getBMRLearnerIds(bmr)), ordered = FALSE)
     df$learner.id = factor(df$learner.id, order.lrns)
   }
   return(df)

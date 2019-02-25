@@ -86,7 +86,7 @@ generateCritDifferencesData = function(bmr, measure = NULL, p.value = 0.05,
     baseline = as.character(df$learner.id[which.min(df$rank)])
   } else {
     assertString(baseline)
-    assertChoice(baseline, getBMRLearnerIds(bmr))
+    assertChoice(baseline, unique(getBMRLearnerIds(bmr)))
   }
 
   # Perform nemenyi test
