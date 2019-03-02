@@ -37,7 +37,7 @@ plotBMRBoxplots = function(bmr, measure = NULL, style = "box", order.lrns = NULL
     checkDuplicatedLearnerNames(learner.short.names)
 
     if (!is.null(order.lrns)) {
-      learner.ids = getBMRLearnerIds(bmr)
+      learner.ids = unique(getBMRLearnerIds(bmr))
       names(learner.short.names) = learner.ids
       learner.short.names = learner.short.names[order.lrns]
     }
