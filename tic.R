@@ -15,7 +15,7 @@ if (Sys.getenv("RCMDCHECK") == "TRUE") {
 
   if (inherits(ci(), "TravisCI")) {
 
-    get_stage("install") %>%
+    get_stage("before_install") %>%
       add_step(step_install_deps())
 
     get_stage("script") %>%
