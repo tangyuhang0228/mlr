@@ -15,6 +15,8 @@ jobs:
       env: RCMDCHECK=TRUE
       addons:
         apt:
+          sources:
+           - sourceline: 'ppa:marutter/c2d4u3.5'
           packages:
            - libgmp-dev
            - libgsl0-dev
@@ -31,6 +33,7 @@ jobs:
       before_install: R -q -e 'if (!requireNamespace("remotes", quietly = TRUE)) install.packages("remotes"); if (!requireNamespace("curl", quietly = TRUE)) install.packages("curl"); remotes::install_github("ropenscilabs/tic@fix-install-deps"); tic::prepare_all_stages(); tic::before_install()'
       warnings_are_errors: false
       before_script: R -q -e 'tic::before_script()'
+      install: R -q -e 'tic::install()'
       script: R -q -e 'tic::script()'
       after_script: R -q -e 'tic::after_script()'
       before_deploy: R -q -e 'tic::before_deploy()'
