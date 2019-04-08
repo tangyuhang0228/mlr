@@ -16,7 +16,7 @@ if (Sys.getenv("RCMDCHECK") == "TRUE") {
   if (inherits(ci(), "TravisCI")) {
 
     get_stage("before_install") %>%
-      add_step(step_install_deps(repos = c(getOption("repos"), remotes::bioc_install_repos()[1])))
+      add_step(step_install_deps(repos = c(getOption("repos"), remotes::bioc_install_repos())))
 
     get_stage("script") %>%
       add_code_step(system2("java", args = c("-cp", "$HOME/R/Library/RWekajars/java/weka.jar weka.core.WekaPackageManager",
