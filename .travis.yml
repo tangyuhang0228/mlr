@@ -15,8 +15,6 @@ jobs:
       env: RCMDCHECK=TRUE
       addons:
         apt:
-          sources:
-           - sourceline: 'ppa:marutter/c2d4u3.5'
           packages:
            - libgmp-dev
            - libgsl0-dev
