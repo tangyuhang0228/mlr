@@ -1,6 +1,6 @@
 language: r
 sudo: false
-dist: xenial
+dist: trusty
 # cache: packages
 latex: true
 env:
@@ -24,11 +24,11 @@ jobs:
            - libproj-dev # for sf
            - libgeos-dev # for sf
            - libudunits2-dev # for sf
-           - dplyr
-           - stringi
-           - Rcpp
-           - igraph
-           - xgboost
+           - r-cran-dplyr
+           - r-cran-stringi
+           - r-cran-Rcpp
+           - r-cran-igraph
+           - r-cran-xgboost
 
       before_install: R -q -e 'if (!requireNamespace("remotes", quietly = TRUE)) install.packages("remotes"); if (!requireNamespace("curl", quietly = TRUE)) install.packages("curl"); remotes::install_github("ropenscilabs/tic@fix-install-deps"); tic::prepare_all_stages(); tic::before_install()'
       warnings_are_errors: false
