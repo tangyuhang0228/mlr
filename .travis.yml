@@ -24,7 +24,7 @@ jobs:
            - libudunits2-dev # for sf
            - r-cran-dplyr
            - r-cran-stringi
-           - r-cran-Rcpp
+           - r-cran-rcpp
            - r-cran-igraph
            - r-cran-xgboost
 
