@@ -60,9 +60,8 @@ benchmark = function(learners, tasks, resamplings, measures, keep.pred = TRUE,
     learner = grid$learner,
     more.args = list(learners = learners, tasks = tasks, resamplings = resamplings,
       measures = measures, keep.pred = keep.pred, models = models, show.info = show.info,
-      keep.extract = keep.extract),
-    level = plevel,
-    future = future
+      keep.extract = keep.extract, future = future),
+    level = plevel
   )
   results.by.task = split(results, unlist(grid$task))
   for (taskname in names(results.by.task)) {
@@ -106,7 +105,7 @@ benchmark = function(learners, tasks, resamplings, measures, keep.pred = TRUE,
 NULL
 
 benchmarkParallel = function(task, learner, learners, tasks, resamplings,
-  measures, keep.pred = TRUE, keep.extract = FALSE, models = FALSE, show.info) {
+  measures, keep.pred = TRUE, keep.extract = FALSE, models = FALSE, show.info, future = FALSE) {
   setSlaveOptions()
   if (show.info) {
     messagef("Task: %s, Learner: %s", task, learner)
@@ -120,7 +119,8 @@ benchmarkParallel = function(task, learner, learners, tasks, resamplings,
     }
   }
   r = resample(lrn, tasks[[task]], resamplings[[task]],
-    measures = measures, models = models, extract = extract.this, keep.pred = keep.pred, show.info = show.info)
+    measures = measures, models = models, extract = extract.this,
+    keep.pred = keep.pred, show.info = show.info, future = future)
   # store used learner in result
   r$learner = lrn
   return(r)
