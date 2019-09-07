@@ -40,7 +40,8 @@
 #' friedmanTestBMR(bmr)
 #' friedmanPostHocTestBMR(bmr, p.value = 0.05)
 benchmark = function(learners, tasks, resamplings, measures, keep.pred = TRUE,
-  keep.extract = FALSE, models = FALSE, show.info = getMlrOption("show.info")) {
+  keep.extract = FALSE, models = FALSE, show.info = getMlrOption("show.info"),
+  future = FALSE) {
 
   learners = ensureBenchmarkLearners(learners)
   tasks = ensureBenchmarkTasks(tasks)
@@ -60,7 +61,8 @@ benchmark = function(learners, tasks, resamplings, measures, keep.pred = TRUE,
     more.args = list(learners = learners, tasks = tasks, resamplings = resamplings,
       measures = measures, keep.pred = keep.pred, models = models, show.info = show.info,
       keep.extract = keep.extract),
-    level = plevel
+    level = plevel,
+    future = future
   )
   results.by.task = split(results, unlist(grid$task))
   for (taskname in names(results.by.task)) {

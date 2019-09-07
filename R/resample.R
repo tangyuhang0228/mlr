@@ -73,7 +73,7 @@
 #'   measures = list(mmce, setAggregation(mmce, train.mean)))
 #' print(r$aggr)
 resample = function(learner, task, resampling, measures, weights = NULL, models = FALSE,
-  extract, keep.pred = TRUE, ..., show.info = getMlrOption("show.info")) {
+  extract, keep.pred = TRUE, ..., show.info = getMlrOption("show.info"), future = FALSE) {
 
   learner = checkLearner(learner)
   learner = setHyperPars(learner, ...)
@@ -132,7 +132,7 @@ resample = function(learner, task, resampling, measures, weights = NULL, models 
   }
 
   time1 = Sys.time()
-  iter.results = parallelMap(doResampleIteration, seq_len(rin$desc$iters), level = "mlr.resample", more.args = more.args)
+  iter.results = parallelMap(doResampleIteration, future = future, seq_len(rin$desc$iters), level = "mlr.resample", more.args = more.args)
   time2 = Sys.time()
   runtime = as.numeric(difftime(time2, time1, units = "secs"))
   addClasses(
