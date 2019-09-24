@@ -14,6 +14,7 @@
 <!-- Bootstrap -->
 <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
+
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -28,7 +29,9 @@
 <script src="../pkgdown.js"></script>
   <link href="../extra.css" rel="stylesheet">
   <script src="../extra.js"></script>
+
 <meta property="og:title" content="Changelog" />
+
 
 
 <!-- mathjax -->
@@ -40,12 +43,12 @@
 <![endif]-->
 
 
-
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
 
 
 <link rel="icon" type="image/png" href="https://mlr-org.github.io/mlr/favicon.ico">
 <link rel="apple-touch-icon" type="image/png" href="https://mlr-org.github.io/mlr/favicon.ico">
+
   </head>
 
   <body>
@@ -251,7 +254,6 @@
   </ul>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/mlr-org/mlr">
@@ -290,6 +292,7 @@
 </div><!--/.navbar -->
 
       
+
       </header>
 
       <div class="row">
@@ -301,6 +304,18 @@
     </div>
 
     <div class="contents">
+    <div id="mlr-development-version" class="section level1">
+<h1 class="page-header">
+<a href="#mlr-development-version" class="anchor"></a>mlr (development version)<small> Unreleased </small>
+</h1>
+<div id="misc" class="section level2">
+<h2 class="hasAnchor">
+<a href="#misc" class="anchor"></a>misc</h2>
+<ul>
+<li>Add <code><a href="../reference/configureMlr.html">configureMlr()</a></code> to <code><a href="https://rdrr.io/r/base/ns-hooks.html">.onLoad()</a></code>, possibly fixing some edge cases (<a href='https://github.com/mlr-org/mlr/issues/2585'>#2585</a>) (<a href='https://github.com/pat-s'>@pat-s</a>, <a href='https://github.com/mlr-org/mlr/issues/2637'>#2637</a>)</li>
+</ul>
+</div>
+</div>
     <div id="mlr-2-15-0" class="section level1">
 <h1 class="page-header">
 <a href="#mlr-2-15-0" class="anchor"></a>mlr 2.15.0<small> 2019-08-06 </small>
@@ -356,7 +371,7 @@ See <code><a href="../reference/regr.randomForest.html">?regr.randomForest</a></
 <code><a href="../reference/getClassWeightParam.html">getClassWeightParam()</a></code> now also works for Wrapper* Models and ensemble models (<a href='https://github.com/ja-thomas'>@ja-thomas</a>, <a href='https://github.com/mlr-org/mlr/issues/891'>#891</a>)</li>
 <li>added <code><a href="../reference/getLearnerNote.html">getLearnerNote()</a></code> to query the “Note” slot of a learner (<a href='https://github.com/alona-sydorova'>@alona-sydorova</a>, <a href='https://github.com/mlr-org/mlr/issues/2086'>#2086</a>)</li>
 <li>
-<code><a href="https://www.rdocumentation.org/packages/e1071/topics/svm">e1071::svm()</a></code> now only uses the formula interface if factors are present. This change is supposed to prevent from “stack overflow” issues some users encountered when using large datasets. See <a href='https://github.com/mlr-org/mlr/issues/1738'>#1738</a> for more information. (<a href='https://github.com/mb706'>@mb706</a>, <a href='https://github.com/mlr-org/mlr/issues/1740'>#1740</a>)</li>
+<code><a href="https://rdrr.io/pkg/e1071/man/svm.html">e1071::svm()</a></code> now only uses the formula interface if factors are present. This change is supposed to prevent from “stack overflow” issues some users encountered when using large datasets. See <a href='https://github.com/mlr-org/mlr/issues/1738'>#1738</a> for more information. (<a href='https://github.com/mb706'>@mb706</a>, <a href='https://github.com/mlr-org/mlr/issues/1740'>#1740</a>)</li>
 </ul>
 </div>
 <div id="learners---new" class="section level2">
@@ -373,7 +388,7 @@ See <code><a href="../reference/regr.randomForest.html">?regr.randomForest</a></
 <li>
 <code><a href="../reference/plotHyperParsEffect.html">plotHyperParsEffect()</a></code> now supports facet visualization of hyperparam effects for nested cv (<a href='https://github.com/MasonGallo'>@MasonGallo</a>, <a href='https://github.com/mlr-org/mlr/issues/1653'>#1653</a>)</li>
 <li>fixed a bug that caused an incorrect aggregation of probabilities in some cases. The bug existed since quite some time and was exposed due to the change of <code>data.table</code>s default in <code>rbindlist()</code>. See <a href='https://github.com/mlr-org/mlr/issues/2578'>#2578</a> for more information. (<a href='https://github.com/mllg'>@mllg</a>, <a href='https://github.com/mlr-org/mlr/issues/2579'>#2579</a>)</li>
-<li>fixed a bug in which <code><a href="https://www.rdocumentation.org/packages/base/topics/options">options(on.learner.error)</a></code> was not respected in <code><a href="../reference/benchmark.html">benchmark()</a></code>. This caused <code><a href="../reference/benchmark.html">benchmark()</a></code> to stop even if it should have continued including <code>FailureModels</code> in the result (<a href='https://github.com/dagola'>@dagola</a>, <a href='https://github.com/mlr-org/mlr/issues/1984'>#1984</a>)</li>
+<li>fixed a bug in which <code><a href="https://rdrr.io/r/base/options.html">options(on.learner.error)</a></code> was not respected in <code><a href="../reference/benchmark.html">benchmark()</a></code>. This caused <code><a href="../reference/benchmark.html">benchmark()</a></code> to stop even if it should have continued including <code>FailureModels</code> in the result (<a href='https://github.com/dagola'>@dagola</a>, <a href='https://github.com/mlr-org/mlr/issues/1984'>#1984</a>)</li>
 <li>
 <code><a href="../reference/getClassWeightParam.html">getClassWeightParam()</a></code> now also works for Wrapper* Models and ensemble models (<a href='https://github.com/ja-thomas'>@ja-thomas</a>, <a href='https://github.com/mlr-org/mlr/issues/891'>#891</a>)</li>
 <li>added <code><a href="../reference/getLearnerNote.html">getLearnerNote()</a></code> to query the “Note” slot of a learner (<a href='https://github.com/alona-sydorova'>@alona-sydorova</a>, <a href='https://github.com/mlr-org/mlr/issues/2086'>#2086</a>)</li>
@@ -1575,6 +1590,7 @@ See <code><a href="../reference/regr.randomForest.html">?regr.randomForest</a></
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#mlr-development-version">development version</a></li>
         <li><a href="#mlr-2-15-0">2.15.0</a></li>
         <li><a href="#mlr-2-14-0">2.14.0</a></li>
         <li><a href="#mlr-2-13">2.13</a></li>
@@ -1598,6 +1614,7 @@ See <code><a href="../reference/regr.randomForest.html">?regr.randomForest</a></
 
 </div>
 
+
       <footer>
       <!--<div class="copyright">
   <p>Developed by Bernd Bischl, Michel Lang, Lars Kotthoff, Julia Schiffner, Jakob Richter, Zachary Jones, Giuseppe Casalicchio, Mason Gallo, Patrick Schratz.</p>
@@ -1607,11 +1624,11 @@ See <code><a href="../reference/regr.randomForest.html">?regr.randomForest</a></
   <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 -->
+
       </footer>
    </div>
 
-   
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
 <script type="text/javascript"> docsearch({
  apiKey: 'e300ecafdf04fe1199e3339c825ce7d0',
  indexName: 'mlr',
@@ -1623,4 +1640,5 @@ See <code><a href="../reference/regr.randomForest.html">?regr.randomForest</a></
 
   </body>
 </html>
+
 
