@@ -1,3 +1,6 @@
+install.packages("future.callr")
+install.packages("here")
+install.packages("doFuture")
 library("future.callr")
 library("here")
 library("doFuture")
