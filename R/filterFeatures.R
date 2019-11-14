@@ -117,6 +117,7 @@ filterFeatures = function(task, method = "randomForestSRC_importance", fval = NU
     } else {
       generateFVData = generateFilterValuesData
     }
+    Sys.sleep(sample(seq(1, 3, 0.01), 1))
     fval = generateFVData(task = task, method = method, nselect = getTaskNFeats(task), ...)$data
   } else {
     assertClass(fval, "FilterValues")
