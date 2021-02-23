@@ -1,11 +1,11 @@
-context("classif_randomForestSRC")
 
 test_that("classif_randomForestSRC", {
+  skip_on_os("mac")
   requirePackagesOrSkip("randomForestSRC", default.method = "load")
 
   parset.list = list(
-    list(ntree = 100),
-    list(ntree = 250, mtry = 5L),
+    list(ntree = 200),
+    list(ntree = 350, mtry = 5L),
     list(ntree = 250, nodesize = 2, na.action = "na.impute",
       importance = "permute", proximity = FALSE)
   )

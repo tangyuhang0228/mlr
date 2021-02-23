@@ -292,10 +292,11 @@ randomForestSRC.var.select = makeFilter( # nolint
     # method "vh.imp" is not supported as it does return values to rank features on
     assert_choice(method, c("md", "vh"))
     im = randomForestSRC::var.select(getTaskFormula(task), getTaskData(task),
-      method = method, verbose = FALSE, always.use = getTaskFeatureNames(task),
+      method = method, verbose = FALSE,
       ...)
+
     im$varselect[setdiff(rownames(im$varselect), im$topvars), "depth"] = NA
-    im$topvars
+    setNames(im$varselect[, "depth"], rownames(im$varselect))
   })
 .FilterRegister[["randomForestSRC.var.select"]] = randomForestSRC.var.select
 .FilterRegister[["randomForestSRC.var.select"]]$desc = "(DEPRECATED)"
@@ -950,7 +951,7 @@ makeFilter(
   name = "praznik_JMI",
   desc = "Joint mutual information filter",
   pkg = "praznik",
-  supported.tasks = "classif",
+  supported.tasks = c("classif", "regr"),
   supported.features = c("numerics", "factors", "integer", "character", "logical"),
   fun = praznik_filter("JMI")
 )
@@ -961,7 +962,7 @@ makeFilter(
   name = "praznik_DISR",
   desc = "Double input symmetrical relevance filter",
   pkg = "praznik",
-  supported.tasks = "classif",
+  supported.tasks = c("classif", "regr"),
   supported.features = c("numerics", "factors", "integer", "character", "logical"),
   fun = praznik_filter("DISR")
 )
@@ -972,7 +973,7 @@ makeFilter(
   name = "praznik_JMIM",
   desc = "Minimal joint mutual information maximisation filter",
   pkg = "praznik",
-  supported.tasks = "classif",
+  supported.tasks = c("classif", "regr"),
   supported.features = c("numerics", "factors", "integer", "character", "logical"),
   fun = praznik_filter("JMIM")
 )
@@ -983,7 +984,7 @@ makeFilter(
   name = "praznik_MIM",
   desc = "conditional mutual information based feature selection filters",
   pkg = "praznik",
-  supported.tasks = "classif",
+  supported.tasks = c("classif", "regr"),
   supported.features = c("numerics", "factors", "integer", "character", "logical"),
   fun = praznik_filter("MIM")
 )
@@ -994,7 +995,7 @@ makeFilter(
   name = "praznik_NJMIM",
   desc = "Minimal normalised joint mutual information maximisation filter",
   pkg = "praznik",
-  supported.tasks = "classif",
+  supported.tasks = c("classif", "regr"),
   supported.features = c("numerics", "factors", "integer", "character", "logical"),
   fun = praznik_filter("NJMIM")
 )
@@ -1005,7 +1006,7 @@ makeFilter(
   name = "praznik_MRMR",
   desc = "Minimum redundancy maximal relevancy filter",
   pkg = "praznik",
-  supported.tasks = c("classif", "regr", "surv"),
+  supported.tasks = c("classif", "regr"),
   supported.features = c("numerics", "factors", "integer", "character", "logical"),
   fun = praznik_filter("MRMR")
 )
@@ -1040,6 +1041,37 @@ FSelectorRcpp.filter = function(type) {
     replace(res, is.nan(res), 0) # FIXME: this is a technical fix, need to report upstream
   }
 }
+
+# FSelectorRcpp_relief ----------------
+
+#' Filter \dQuote{relief} is based on the feature selection algorithm \dQuote{ReliefF}
+#' by Kononenko et al., which is a generalization of the orignal \dQuote{Relief}
+#' algorithm originally proposed by Kira and Rendell. Feature weights are initialized
+#' with zeros. Then for each instance `sample.size` instances are sampled,
+#' `neighbours.count` nearest-hit and nearest-miss neighbours are computed
+#' and the weight vector for each feature is updated based on these values.
+#'
+#' @rdname makeFilter
+#' @name makeFilter
+NULL
+
+# FSelectorRcpp_relief ----------------
+
+makeFilter(
+  name = "FSelectorRcpp_relief",
+  desc = "RELIEF algorithm",
+  pkg = "FSelectorRcpp",
+  supported.tasks = c("classif", "regr"),
+  supported.features = c("numerics", "factors"),
+  fun = function(task, nselect, ...) {
+    data = getTaskData(task)
+    X = data[getTaskFeatureNames(task)]
+    Y = data[[getTaskTargetNames(task)]]
+    res = FSelectorRcpp::relief(x = X, y = Y, ...)
+    res = setNames(res$importance, res$attributes)
+    replace(res, is.nan(res), 0) # FIXME: this is a technical fix, need to report upstream
+  }
+  )
 
 # FSelectorRcpp_info.gain ----------------
 

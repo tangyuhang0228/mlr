@@ -36,7 +36,7 @@
 #'   of one classifier to all others. \cr
 #'   Algorithms not connected by a single line are statistically different
 #'   from the baseline. \cr
-#'   \dQuote{nemenyi} for the [PMCMR::posthoc.friedman.nemenyi.test]
+#'   \dQuote{nemenyi} for the [PMCMRplus::frdAllPairsNemenyiTest]
 #'   which is comparing all classifiers to each other. The null hypothesis that
 #'   there is a difference between the classifiers can not be rejected for all
 #'   classifiers that have a single grey bar connecting them.
@@ -45,11 +45,11 @@
 #'                part of the plot}
 #' \item{friedman.nemenyi.test}{(list) of class `pairwise.htest` \cr
 #'                                contains the calculated
-#'                                [PMCMR::posthoc.friedman.nemenyi.test]}
+#'                                [PMCMRplus::frdAllPairsNemenyiTest]}
 #' \item{cd.info}{(list) containing info on the critical difference
 #'                  and its positioning}
 #' \item{baseline}{`baseline` chosen for plotting}
-#' \item{p.value}{p.value used for the [PMCMR::posthoc.friedman.nemenyi.test]
+#' \item{p.value}{p.value used for the [PMCMRplus::frdAllPairsNemenyiTest]
 #'                  and for computation of the critical difference}
 #'
 #' @family generate_plot_data
@@ -127,28 +127,28 @@ generateCritDifferencesData = function(bmr, measure = NULL, p.value = 0.05,
 }
 #' @title Plot critical differences for a selected measure.
 #'
-#' @description Plots a critical-differences diagram for all classifiers and
-#' a selected measure. If a baseline is selected for the Bonferroni-Dunn
-#' test, the critical difference interval will be positioned arround the baseline.
-#' If not, the best performing algorithm will be chosen as baseline.
-#' The positioning of some descriptive elements can be moved by modifying the
-#' generated data.
+#' @description Plots a critical-differences diagram for all classifiers and a
+#'   selected measure. If a baseline is selected for the Bonferroni-Dunn test,
+#'   the critical difference interval will be positioned around the baseline. If
+#'   not, the best performing algorithm will be chosen as baseline.
 #'
-#' @param obj ([critDifferencesData])
-#'   Result of \link{generateCritDifferencesData} function.
-#' @param baseline (`character(1)`): ([learner.id]) \cr
-#'   Overwrites baseline from \link{generateCritDifferencesData}!\cr
-#'   Select a ([learner.id` as baseline for the critical difference
-#'   diagram, the critical difference will be positioned arround this learner.
+#'   The positioning of some descriptive elements can be moved by modifying the
+#'   generated data.
+#'
+#' @param obj (`critDifferencesData`)
+#'   Result of [generateCritDifferencesData()].
+#' @param baseline (`character(1)`): (`learner.id`)\cr
+#'   Overwrites baseline from [generateCritDifferencesData()]!\cr
+#'   Select a `learner.id` as baseline for the critical difference
+#'   diagram, the critical difference will be positioned around this learner.
 #'   Defaults to best performing algorithm.
 #' @template arg_prettynames
 #' @template ret_gg2
 #'
-#' @references Janez Demsar, Statistical Comparisons of Classifiers over Multiple Data Sets,
-#' JMLR, 2006
+#' @references Janez Demsar, Statistical Comparisons of Classifiers over
+#'   Multiple Data Sets, JMLR, 2006
 #' @family plot
 #' @family benchmark
-#' @noMd
 #' @export
 #' @examples
 #' # see benchmark

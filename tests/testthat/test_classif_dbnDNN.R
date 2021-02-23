@@ -1,4 +1,3 @@
-context("classif_dbnDNN")
 
 test_that("classif_dbnDNN", {
   requirePackagesOrSkip("deepnet", default.method = "load")
@@ -31,7 +30,8 @@ test_that("classif_dbnDNN", {
       }
       pars = list(x = x, y = onehot)
       pars = c(pars, parset)
-      m = do.call(deepnet::dbn.dnn.train, pars)
+      set.seed(getOption("mlr.debug.seed"))
+      m = suppressMessages(do.call(deepnet::dbn.dnn.train, pars))
       p = deepnet::nn.predict(m, data.matrix(binaryclass.test[, -ncol(binaryclass.test)]))
       colnames(p) = binaryclass.class.levs
       old.predicts.list[[i]] = as.factor(colnames(p)[max.col(p)])

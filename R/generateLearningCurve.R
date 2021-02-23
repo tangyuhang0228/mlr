@@ -25,24 +25,20 @@
 #'   Should the downsampled data be stratified according to the target classes?
 #' @template arg_showinfo
 #' @return ([LearningCurveData]). A `list` containing:
-#'   \item{task}{[[Task])\cr
-#'     The task.}
-#'   \item{measures}{[(list of) [Measure])\cr
-#'     Performance measures.}
-#'   \item{data}{([data.frame]) with columns:
-#'     \itemize{
-#'       \item `learner` Names of learners.
-#'       \item `percentage` Percentages drawn from the training split.
-#'       \item One column for each
-#'     [Measure] passed to [generateLearningCurveData].
-#'    }}
+#'   - The [Task]
+#'   - List of [Measure])\cr
+#'     Performance measures
+#'   - data ([data.frame]) with columns:
+#'       - `learner` Names of learners.
+#'       - `percentage` Percentages drawn from the training split.
+#'       - One column for each [Measure] passed to [generateLearningCurveData].
 #' @examples
 #' r = generateLearningCurveData(list("classif.rpart", "classif.knn"),
 #'   task = sonar.task, percs = seq(0.2, 1, by = 0.2),
-#'   measures = list(tp, fp, tn, fn), resampling = makeResampleDesc(method = "Subsample", iters = 5),
+#'   measures = list(tp, fp, tn, fn),
+#'   resampling = makeResampleDesc(method = "Subsample", iters = 5),
 #'   show.info = FALSE)
 #' plotLearningCurve(r)
-#' @noMd
 #' @export
 generateLearningCurveData = function(learners, task, resampling = NULL,
   percs = seq(0.1, 1, by = 0.1), measures, stratify = FALSE, show.info = getMlrOption("show.info")) {
@@ -61,26 +57,22 @@ generateLearningCurveData = function(learners, task, resampling = NULL,
   }
 
   # create downsampled versions for all learners
-  lrnds1 = lapply(learners, function(lrn) {
+  dsws = lapply(learners, function(lrn) {
     lapply(seq_along(percs), function(p.id) {
       perc = percs[p.id]
       dsw = makeDownsampleWrapper(learner = lrn, dw.perc = perc, dw.stratify = stratify)
-      list(
-        lrn.id = lrn$id,
-        lrn = setLearnerId(dsw, stri_paste(lrn$id, ".", p.id)),
-        perc = perc
-      )
+      setLearnerId(dsw, stri_paste(lrn$id, ".", p.id))
     })
   })
-  lrnds2 = unlist(lrnds1, recursive = FALSE)
-  dsws = extractSubList(lrnds2, "lrn", simplify = FALSE)
+  dsws = unlist(dsws, recursive = FALSE)
 
   bench.res = benchmark(dsws, task, resampling, measures, show.info = show.info)
+
   perfs = getBMRAggrPerformances(bench.res, as.df = TRUE)
 
   # get perc and learner col data
-  perc = extractSubList(lrnds2[perfs$learner.id], "perc")
-  learner = extractSubList(lrnds2[perfs$learner.id], "lrn.id")
+  perc = extractSubList(bench.res$learners, c("par.vals", "dw.perc")) # get downsample reate
+  learner = extractSubList(bench.res$learners, c("next.learner", "id")) #get ID of unwrapped learner
   perfs = dropNamed(perfs, c("task.id", "learner.id"))
 
   # set short measures names and resort cols

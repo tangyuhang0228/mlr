@@ -1,8 +1,10 @@
 # this is a long test suite that is used to test the validity of ALL filters
 
-context("filterFeatures")
-
 test_that("filterFeatures 1", {
+
+  # FSelector not avail
+  skip_on_os("windows")
+
   # Loop through all filters
   # univariate.model.score, permutation.importance and auc are handled extra test below
   # 'univariate', 'randomForest_importance' and 'rfsrc_var.select' are deprecated
@@ -74,7 +76,7 @@ test_that("randomForestSRC_var.select filter handles user choices correctly", {
 
   # method = "vh.imp" is not supported
   expect_error(
-    fv = suppressWarnings(generateFilterValuesData(task = multiclass.task,
+    suppressWarnings(generateFilterValuesData(task = multiclass.task,
       method = "randomForestSRC_var.select",
       more.args = list("randomForestSRC_var.select" = c(method = "vh.imp"))))
   )
@@ -101,15 +103,16 @@ test_that("Custom threshold function for filtering works correctly", {
     fun.args = list("diff" = 1)
   )
   feats = getTaskFeatureNames(ftask)
-  expect_equal(feats, c("Petal.Length"))
+  expect_equal(feats, "Petal.Length")
 })
 
 test_that("randomForestSRC_var.select minimal depth filter returns NA for features below the threshold", {
   dat = generateFilterValuesData(task = multiclass.task,
     method = "randomForestSRC_var.select",
     nselect = 5,
-    more.args = list("randomForestSRC_var.select" = list(method = "md", nrep = 5)))
-  expect_equal(is.na(dat$data$value[dat$data$name %in% c("Sepal.Length", "Sepal.width")]), TRUE)
+    more.args = list(method = "md", nrep = 5))
+  expect_equal(all(is.na(dat$data$value[dat$data$name %in% c("Sepal.Length", "Sepal.Width")])), TRUE)
+  expect_equal(all(is.na(dat$data$value[dat$data$name %in% c("Petal.Length", "Petal.Width")])), FALSE)
 })
 
 test_that("ensemble filters subset the task correctly", {

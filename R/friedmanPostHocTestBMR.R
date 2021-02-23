@@ -1,13 +1,15 @@
 #' @title Perform a posthoc Friedman-Nemenyi test.
 #'
 #' @description
-#' Performs a [PMCMR::posthoc.friedman.nemenyi.test] for a
+#' Performs a [PMCMRplus::frdAllPairsNemenyiTest] for a
 #' [BenchmarkResult] and a selected measure.
-#' This means *all pairwise comparisons* of `learners` are performed.
-#' The null hypothesis of the post hoc test is that each pair of learners is equal.
-#' If the null hypothesis of the included ad hoc [stats::friedman.test]
-#' can be rejected an object of class `pairwise.htest` is returned. If not, the function returns the
-#' corresponding \link[stats]{friedman.test}.
+#'
+#' This means *all pairwise comparisons* of `learners` are performed. The null
+#' hypothesis of the post hoc test is that each pair of learners is equal. If
+#' the null hypothesis of the included ad hoc [stats::friedman.test] can be
+#' rejected an object of class `pairwise.htest` is returned. If not, the
+#' function returns the corresponding \link[stats]{friedman.test}.
+#'
 #' Note that benchmark results for at least two learners on at least two tasks
 #' are required.
 #'
@@ -16,21 +18,21 @@
 #' @param p.value (`numeric(1)`)\cr
 #'   p-value for the tests. Default: 0.05
 #' @template arg_aggregation_method
-#' @return ([pairwise.htest]): See [PMCMR::posthoc.friedman.nemenyi.test] for details.
+#' @return (`pairwise.htest`): See [PMCMRplus::frdAllPairsNemenyiTest] for
+#'   details.
 #' Additionally two components are added to the list:
-#' \describe{
-#'   \item{f.rejnull (`logical(1)`)}{Whether the according friedman.test rejects the Null hypothesis at the selected p.value}
-#'   \item{crit.difference (`list(2)`)}{Minimal difference the mean ranks of two learners need to have in order to be significantly different}
-#' }
+#'   - f.rejnull (`logical(1)`):\cr Whether the according friedman.test rejects
+#'   the Null hypothesis at the selected p.value
+#'   - crit.difference (`list(2)`):\cr Minimal difference the mean ranks of two
+#'   learners need to have in order to be significantly different
 #'
 #' @family benchmark
-#' @noMd
 #' @export
 #' @examples
 #' # see benchmark
 friedmanPostHocTestBMR = function(bmr, measure = NULL, p.value = 0.05, aggregation = "default") {
 
-  requirePackages("PMCMR")
+  requirePackages("PMCMRplus")
   assertClass(bmr, "BenchmarkResult")
   assertNumeric(p.value, lower = 0, upper = 1, len = 1)
   assertChoice(aggregation, c("default", "mean"))
@@ -76,7 +78,7 @@ friedmanPostHocTestBMR = function(bmr, measure = NULL, p.value = 0.05, aggregati
 
   if (f.rejnull) {
     form = as.formula(stri_paste(aggr.meas, " ~ learner.id | task.id", sep = ""))
-    nem.test = PMCMR::posthoc.friedman.nemenyi.test(form, data = df)
+    nem.test = PMCMRplus::frdAllPairsNemenyiTest(form, data = df)
     nem.test$crit.difference = list("nemenyi" = cd.nemenyi, "bd" = cd.bd)
     nem.test$f.rejnull = f.rejnull
     return(nem.test)

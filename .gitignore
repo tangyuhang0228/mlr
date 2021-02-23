@@ -23,3 +23,8 @@ Thumbs.db
 .settings
 .ipynb_checkpoints
 revdep/
+cran-comments.md
+.vscode/
+docs/
+CRAN-RELEASE
+inst/debug.R

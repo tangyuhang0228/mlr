@@ -1,6 +1,10 @@
-context("hyperpars")
 
 test_that("hyperpars", {
+
+  # RWeka not avail
+  skip_on_cran()
+  skip_on_os("windows")
+
   lrn = makeLearner("classif.rpart", minsplit = 10)
   expect_equal(getHyperPars(lrn), list(xval = 0, minsplit = 10))
 
@@ -106,14 +110,14 @@ test_that("options are respected", {
   lrn = makeLearner("classif.__mlrmocklearners__2", config = list(on.par.without.desc = "warn"))
   expect_warning(setHyperPars(lrn, beta = 1), "available description object")
   lrn = makeLearner("classif.__mlrmocklearners__2", config = list(on.par.without.desc = "quiet"))
-  expect_is(setHyperPars(lrn, beta = 1), "Learner")
+  expect_s3_class(setHyperPars(lrn, beta = 1), "Learner")
 
   lrn = makeLearner("classif.__mlrmocklearners__2")
   expect_error(setHyperPars(lrn, alpha = 2), "feasible")
   lrn = makeLearner("classif.__mlrmocklearners__2", config = list(on.par.out.of.bounds = "warn"))
   expect_warning(setHyperPars(lrn, alpha = 2), "feasible")
   lrn = makeLearner("classif.__mlrmocklearners__2", config = list(on.par.out.of.bounds = "quiet"))
-  expect_is(setHyperPars(lrn, alpha = 2), "Learner")
+  expect_s3_class(setHyperPars(lrn, alpha = 2), "Learner")
 
 
   # with global option
@@ -121,9 +125,9 @@ test_that("options are respected", {
 
   lrn = makeLearner("classif.__mlrmocklearners__2")
   configureMlr(on.par.without.desc = "quiet")
-  expect_is(setHyperPars(lrn, beta = 1), "Learner")
+  expect_s3_class(setHyperPars(lrn, beta = 1), "Learner")
   configureMlr(on.par.out.of.bounds = "quiet")
-  expect_is(setHyperPars(lrn, alpha = 2), "Learner")
+  expect_s3_class(setHyperPars(lrn, alpha = 2), "Learner")
 
   do.call(configureMlr, mlr.opts)
 })

@@ -24,6 +24,7 @@ Default is \code{TRUE}.}
 \item{impute.val}{(\link{numeric})\cr
 If something goes wrong during optimization (e.g. the learner crashes),
 this value is fed back to the tuner, so the tuning algorithm does not abort.
+Imputation is only active if \code{on.learner.error} is configured not to stop in \link{configureMlr}.
 It is not stored in the optimization path, an NA and a corresponding error message are
 logged instead.
 Note that this value is later multiplied by -1 for maximization measures internally, so you
@@ -77,7 +78,7 @@ evaluations. If set, must equal the size of the grid.}
 \description{
 A basic grid search can handle all kinds of parameter types.
 You can either use their correct param type and \code{resolution},
-or discretize them yourself by always using \link[ParamHelpers:makeDiscreteParam]{ParamHelpers::makeDiscreteParam}
+or discretize them yourself by always using \link[ParamHelpers:Param]{ParamHelpers::makeDiscreteParam}
 in the \code{par.set} passed to \link{tuneParams}.
 }
 \seealso{

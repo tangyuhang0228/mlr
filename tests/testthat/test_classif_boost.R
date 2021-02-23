@@ -1,4 +1,3 @@
-context("classif_boosting")
 
 # FIXME: Test takes 80s if we test with the default mfinal=100. Without 10s
 # Is there any reasons why testing mfinal=100 would be absolutely necessary?
@@ -28,7 +27,7 @@ test_that("classif_boosting rpart control", {
   }
 
   parset.list2 = list(
-    #list(), # mfinal=100
+    # list(), # mfinal=100
     list(mfinal = 1),
     list(mfinal = 2, cp = 0.2)
   )

@@ -1,4 +1,3 @@
-context("learners_classiflabelswitch")
 
 n = 50L
 p = 2L
@@ -47,6 +46,10 @@ hpars = list(
 
 
 test_that("no labels are switched", {
+
+  # because of missing rJava for bartMachine
+  skip_on_os("windows")
+
   configureMlr(on.learner.error = "warn", show.learner.output = FALSE)
 
 
@@ -78,13 +81,13 @@ test_that("no labels are switched", {
       err
     })
   }
-  # FIXME: only check prob for now for timimg reasons
+  # FIXME: only check prob for now for timing reasons
   for (predtype in "prob") {
-    checkErrsForTask(mytask1a, predtype)
-    checkErrsForTask(mytask1b, predtype)
-    checkErrsForTask(mytask2a, predtype)
-    checkErrsForTask(mytask2b, predtype)
-    checkErrsForTask(mytask3, predtype)
-    checkErrsForTask(mytask4, predtype)
+    suppressWarnings(checkErrsForTask(mytask1a, predtype))
+    suppressWarnings(checkErrsForTask(mytask1b, predtype))
+    suppressWarnings(checkErrsForTask(mytask2a, predtype))
+    suppressWarnings(checkErrsForTask(mytask2b, predtype))
+    suppressWarnings(checkErrsForTask(mytask3, predtype))
+    suppressWarnings(checkErrsForTask(mytask4, predtype))
   }
 })

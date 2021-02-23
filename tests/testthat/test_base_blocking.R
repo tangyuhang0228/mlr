@@ -1,7 +1,5 @@
-context("blocking")
 
 test_that("blocking", {
-
   df = multiclass.df
   b = as.factor(rep(1:30, 5))
   ct = makeClassifTask(target = multiclass.target, data = multiclass.df, blocking = b)

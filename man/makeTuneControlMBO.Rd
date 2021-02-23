@@ -27,6 +27,7 @@ Default is \code{TRUE}.}
 \item{impute.val}{(\link{numeric})\cr
 If something goes wrong during optimization (e.g. the learner crashes),
 this value is fed back to the tuner, so the tuning algorithm does not abort.
+Imputation is only active if \code{on.learner.error} is configured not to stop in \link{configureMlr}.
 It is not stored in the optimization path, an NA and a corresponding error message are
 logged instead.
 Note that this value is later multiplied by -1 for maximization measures internally, so you
@@ -40,7 +41,7 @@ in the same order as your measures.}
 The surrogate learner: A regression learner to model performance landscape.
 For the default, \code{NULL}, \pkg{mlrMBO} will automatically create a suitable learner based on the rules described in \link[mlrMBO:makeMBOLearner]{mlrMBO::makeMBOLearner}.}
 
-\item{mbo.control}{(\link[mlrMBO:MBOControl]{mlrMBO::MBOControl} | \code{NULL})\cr
+\item{mbo.control}{(\link[mlrMBO:makeMBOControl]{mlrMBO::MBOControl} | \code{NULL})\cr
 Control object for model-based optimization tuning.
 For the default, \code{NULL}, the control object will be created with all the defaults as described in \link[mlrMBO:makeMBOControl]{mlrMBO::makeMBOControl}.}
 

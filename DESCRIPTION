@@ -1,6 +1,6 @@
 Package: mlr
 Title: Machine Learning in R
-Version: 2.16.0.9000
+Version: 2.19.0.9000
 Authors@R:
     c(person(given = "Bernd",
              family = "Bischl",
@@ -16,6 +16,11 @@ Authors@R:
              family = "Kotthoff",
              role = "aut",
              email = "larsko@uwyo.edu"),
+      person(given = "Patrick",
+             family = "Schratz",
+             role = c("aut", "cre"),
+             email = "patrick.schratz@gmail.com",
+             comment = c(ORCID = "0000-0003-0748-6624")),
       person(given = "Julia",
              family = "Schiffner",
              role = "aut",
@@ -37,11 +42,6 @@ Authors@R:
              family = "Gallo",
              role = "aut",
              email = "masonagallo@gmail.com"),
-      person(given = "Patrick",
-             family = "Schratz",
-             role = c("aut", "cre"),
-             email = "patrick.schratz@gmail.com",
-             comment = c(ORCID = "0000-0003-0748-6624")),
       person(given = "Jakob",
              family = "Bossek",
              role = "ctb",
@@ -131,11 +131,11 @@ Description: Interface to a large number of classification and
     descriptions. There is also an experimental extension for survival
     analysis, clustering and general, example-specific cost-sensitive
     learning. Generic resampling, including cross-validation,
-    bootstrapping and subsampling. Hyperparameter tuning with modern
+    bootstrapping and subsampling.  Hyperparameter tuning with modern
     optimization techniques, for single- and multi-objective problems.
     Filter and wrapper methods for feature selection. Extension of basic
     learners with additional operations common in machine learning, also
-    allowing for easy nested resampling. Most operations can be
+    allowing for easy nested resampling.  Most operations can be
     parallelized.
 License: BSD_2_clause + file LICENSE
 URL: https://mlr.mlr-org.com, https://github.com/mlr-org/mlr
@@ -161,21 +161,19 @@ Suggests:
     adabag,
     bartMachine,
     batchtools,
+    bit64,
     brnn,
     bst,
     C50,
     care,
     caret (>= 6.0-57),
     class,
-    classiFunc,
     clue,
     cluster,
     ClusterR,
     clusterSim (>= 0.44-5),
-    clValid,
     cmaes,
     cowplot,
-    CoxBoost,
     crs,
     Cubist,
     deepnet,
@@ -189,13 +187,12 @@ Suggests:
     extraTrees,
     fda.usc,
     FDboost,
-    flare,
     FNN,
     forecast (>= 8.3),
     fpc,
     frbs,
     FSelector,
-    FSelectorRcpp (>= 0.2.1),
+    FSelectorRcpp (>= 0.3.5),
     gbm,
     GenSA,
     ggpubr,
@@ -203,7 +200,6 @@ Suggests:
     GPfit,
     h2o (>= 3.6.0.8),
     Hmisc,
-    hrbrthemes,
     irace (>= 2.0),
     kernlab,
     kknn,
@@ -230,9 +226,10 @@ Suggests:
     pamr,
     pander,
     party,
+    pec,
     penalized (>= 0.9-47),
     pls,
-    PMCMR (>= 4.1),
+    PMCMRplus,
     praznik (>= 5.0.0),
     randomForest,
     randomForestSRC (>= 2.7.0),
@@ -244,6 +241,7 @@ Suggests:
     rgenoud,
     rknn,
     rmarkdown,
+    Rmpi,
     ROCR,
     rotationForest,
     rpart,
@@ -264,6 +262,7 @@ Suggests:
     testthat,
     tgp,
     TH.data,
+    tidyr,
     tsfeatures,
     vdiffr,
     wavelets,
@@ -271,7 +270,15 @@ Suggests:
 VignetteBuilder:
     knitr
 ByteCompile: yes
+Config/testthat/edition: 3
+Config/testthat/parallel: true
+Config/testthat/start-first: base_generateHyperParsEffect,
+    classif_bartMachine, tune_tuneIrace, featsel_filters, learners_all*,
+    regr_h2ogbm
 Encoding: UTF-8
 LazyData: yes
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.0.2
+RoxygenNote: 7.1.1
+SystemRequirements: gdal (optional), geos (optional), proj
+    (optional), udunits (optional), gsl (optional), gmp (optional), glu
+    (optional), jags (optional), mpfr (optional), openmpi (optional)

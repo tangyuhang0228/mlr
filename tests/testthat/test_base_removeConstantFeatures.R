@@ -1,4 +1,3 @@
-context("removeConstantFeatures")
 
 test_that("removeConstantFeatures", {
   data = data.frame(
@@ -11,7 +10,8 @@ test_that("removeConstantFeatures", {
     g = c(1, 1),
     n = c(0, 1 - 0.7 - 0.3),
     m = as.double(c(NA, NA)), # only missings are supported?
-    target = as.factor(1:2)
+    target = as.factor(1:2),
+    stringsAsFactors = TRUE
   )
   data = data[c(rep(1, 9), 2), ]
   data$safe = seq_row(data)

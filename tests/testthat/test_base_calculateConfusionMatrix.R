@@ -1,7 +1,5 @@
-context("calculateConfusionMatrix")
 
 test_that("calculateConfusionMatrix", {
-
   rdesc = makeResampleDesc("CV", iters = 3)
   r = resample(makeLearner("classif.rpart"), iris.task, rdesc)
   test.confMatrix(r$pred)
@@ -49,21 +47,21 @@ test_that("calculateConfusionMatrix elements are consistent with implemented mea
   pp = tp + fp # predicted positive
   pn = tn + fn # predicted negative
 
-  # expect_equivalent instead of expect_equal because the performance() result
+  # expect_equal(ignore_attr = TRUE,  instead of expect_equal because the performance() result
   # contains an attribute (the name)
-  expect_equivalent(performance(pred, ppv), tp / pp)
-  expect_equivalent(performance(pred, acc), (tp + tn) / (cp + cn))
-  expect_equivalent(performance(pred, bac), mean(c(tp / cp, tn / cn)))
-  expect_equivalent(performance(pred, ber), mean(c(fp / cn, fn / cp)))
+  expect_equal(ignore_attr = TRUE, performance(pred, ppv), tp / pp)
+  expect_equal(ignore_attr = TRUE, performance(pred, acc), (tp + tn) / (cp + cn))
+  expect_equal(ignore_attr = TRUE, performance(pred, bac), mean(c(tp / cp, tn / cn)))
+  expect_equal(ignore_attr = TRUE, performance(pred, ber), mean(c(fp / cn, fn / cp)))
 
-  expect_equivalent(performance(pred, tpr), tp / cp)
-  expect_equivalent(performance(pred, fpr), fp / cn)
-  expect_equivalent(performance(pred, tnr), tn / cn)
-  expect_equivalent(performance(pred, fnr), fn / cp)
+  expect_equal(ignore_attr = TRUE, performance(pred, tpr), tp / cp)
+  expect_equal(ignore_attr = TRUE, performance(pred, fpr), fp / cn)
+  expect_equal(ignore_attr = TRUE, performance(pred, tnr), tn / cn)
+  expect_equal(ignore_attr = TRUE, performance(pred, fnr), fn / cp)
 
   # check relative confusion matrices
-  expect_equivalent(colSums(cm$relative.col[1:2, 1:2]), c(1, 1))
-  expect_equivalent(rowSums(cm$relative.row[1:2, 1:2]), c(1, 1))
+  expect_equal(ignore_attr = TRUE, colSums(cm$relative.col[1:2, 1:2]), c(1, 1))
+  expect_equal(ignore_attr = TRUE, rowSums(cm$relative.row[1:2, 1:2]), c(1, 1))
   expect_equal(cm$relative.row[1, 1], cm$result[1, 1] / sum(cm$result[1, 1:2]))
   expect_equal(cm$relative.row[1, 2], cm$result[1, 2] / sum(cm$result[1, 1:2]))
   expect_equal(cm$relative.row[2, 1], cm$result[2, 1] / sum(cm$result[2, 1:2]))
@@ -75,7 +73,6 @@ test_that("calculateConfusionMatrix elements are consistent with implemented mea
 })
 
 test_that("calculateConfusionMatrix with different factor levels (#2030)", {
-
   lrn = makeLearner("classif.rpart")
   m = train(lrn, iris.task)
   nd = iris[101:150, ]
@@ -89,7 +86,6 @@ test_that("calculateConfusionMatrix with different factor levels (#2030)", {
 
 
 test_that("calculateConfusionMatrix set argument works", {
-
   mod = train("classif.lda", iris.task)
   pred1 = predict(mod, iris.task)
   rdesc = makeResampleDesc("CV", iters = 10, predict = "both")
@@ -103,8 +99,8 @@ test_that("calculateConfusionMatrix set argument works", {
   # a positive total count:
   test.obs = table(pred2$data$set)["test"]
   train.obs = table(pred2$data$set)["train"]
-  expect_equivalent(sum(calculateConfusionMatrix(pred2, set = "train")$result[1:3, 1:3]), train.obs)
-  expect_equivalent(sum(calculateConfusionMatrix(pred2, set = "test")$result[1:3, 1:3]), test.obs)
+  expect_equal(ignore_attr = TRUE, sum(calculateConfusionMatrix(pred2, set = "train")$result[1:3, 1:3]), train.obs)
+  expect_equal(ignore_attr = TRUE, sum(calculateConfusionMatrix(pred2, set = "test")$result[1:3, 1:3]), test.obs)
 })
 
 test_that("calculateConfusionMatrix raises error when set argument is 'wrong'", {

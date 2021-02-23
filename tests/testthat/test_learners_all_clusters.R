@@ -1,6 +1,13 @@
-context("learners_all_clusters")
 
 test_that("learners work: cluster", {
+  requirePackagesOrSkip("clusterSim", default.method = "load")
+  skip_on_os("windows")
+
+  # RWeka not avail on CRAN
+  skip_on_cran()
+
+  RWeka::WPM("refresh-cache")
+  RWeka::WPM("install-package", "XMeans")
 
   # settings to make learners faster and deal with small sample size
   hyperpars = list()
@@ -8,6 +15,12 @@ test_that("learners work: cluster", {
   # clustering, response
   task = noclass.task
   lrns = listLearnersCustom(task, create = TRUE)
+  # some learners are not avail on windows
+  if (Sys.info()[["sysname"]] == "Windows") {
+    names = vapply(lrns, function(x) x$id, FUN.VALUE = character(1))
+    row_ids = which(names %in% "cluster.Cobweb")
+    lrns[row_ids] = NULL
+  }
   lapply(lrns, testThatLearnerParamDefaultsAreInParamSet)
   lapply(lrns, testBasicLearnerProperties, task = task, hyperpars = hyperpars)
 

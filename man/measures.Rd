@@ -25,7 +25,6 @@
 \alias{measureRSQ}
 \alias{expvar}
 \alias{measureEXPVAR}
-\alias{arsq}
 \alias{rrse}
 \alias{measureRRSE}
 \alias{rae}
@@ -125,264 +124,120 @@
 \alias{meancosts}
 \alias{mcp}
 \alias{db}
-\alias{dunn}
 \alias{G1}
 \alias{G2}
 \alias{silhouette}
 \title{Performance measures.}
-\format{none}
 \usage{
-featperc
-
-timetrain
-
-timepredict
-
-timeboth
-
-sse
-
 measureSSE(truth, response)
-
-mse
 
 measureMSE(truth, response)
 
-rmse
-
 measureRMSE(truth, response)
-
-medse
 
 measureMEDSE(truth, response)
 
-sae
-
 measureSAE(truth, response)
-
-mae
 
 measureMAE(truth, response)
 
-medae
-
 measureMEDAE(truth, response)
-
-rsq
 
 measureRSQ(truth, response)
 
-expvar
-
 measureEXPVAR(truth, response)
-
-arsq
-
-rrse
 
 measureRRSE(truth, response)
 
-rae
-
 measureRAE(truth, response)
-
-mape
 
 measureMAPE(truth, response)
 
-msle
-
 measureMSLE(truth, response)
-
-rmsle
 
 measureRMSLE(truth, response)
 
-kendalltau
-
 measureKendallTau(truth, response)
-
-spearmanrho
 
 measureSpearmanRho(truth, response)
 
-mmce
-
 measureMMCE(truth, response)
-
-acc
 
 measureACC(truth, response)
 
-ber
-
 measureBER(truth, response)
-
-multiclass.aunu
 
 measureAUNU(probabilities, truth)
 
-multiclass.aunp
-
 measureAUNP(probabilities, truth)
-
-multiclass.au1u
 
 measureAU1U(probabilities, truth)
 
-multiclass.au1p
-
 measureAU1P(probabilities, truth)
-
-multiclass.brier
 
 measureMulticlassBrier(probabilities, truth)
 
-logloss
-
 measureLogloss(probabilities, truth)
-
-ssr
 
 measureSSR(probabilities, truth)
 
-qsr
-
 measureQSR(probabilities, truth)
-
-lsr
 
 measureLSR(probabilities, truth)
 
-kappa
-
 measureKAPPA(truth, response)
-
-wkappa
 
 measureWKAPPA(truth, response)
 
-auc
-
 measureAUC(probabilities, truth, negative, positive)
-
-brier
 
 measureBrier(probabilities, truth, negative, positive)
 
-brier.scaled
-
 measureBrierScaled(probabilities, truth, negative, positive)
-
-bac
 
 measureBAC(truth, response)
 
-tp
-
 measureTP(truth, response, positive)
-
-tn
 
 measureTN(truth, response, negative)
 
-fp
-
 measureFP(truth, response, positive)
-
-fn
 
 measureFN(truth, response, negative)
 
-tpr
-
 measureTPR(truth, response, positive)
-
-tnr
 
 measureTNR(truth, response, negative)
 
-fpr
-
 measureFPR(truth, response, negative, positive)
-
-fnr
 
 measureFNR(truth, response, negative, positive)
 
-ppv
-
 measurePPV(truth, response, positive, probabilities = NULL)
-
-npv
 
 measureNPV(truth, response, negative)
 
-fdr
-
 measureFDR(truth, response, positive)
-
-mcc
 
 measureMCC(truth, response, negative, positive)
 
-f1
-
 measureF1(truth, response, positive)
-
-gmean
 
 measureGMEAN(truth, response, negative, positive)
 
-gpr
-
 measureGPR(truth, response, positive)
-
-multilabel.hamloss
 
 measureMultilabelHamloss(truth, response)
 
-multilabel.subset01
-
 measureMultilabelSubset01(truth, response)
-
-multilabel.f1
 
 measureMultilabelF1(truth, response)
 
-multilabel.acc
-
 measureMultilabelACC(truth, response)
-
-multilabel.ppv
 
 measureMultilabelPPV(truth, response)
 
-multilabel.tpr
-
 measureMultilabelTPR(truth, response)
-
-cindex
-
-cindex.uno
-
-iauc.uno
-
-ibrier
-
-meancosts
-
-mcp
-
-db
-
-dunn
-
-G1
-
-G2
-
-silhouette
 }
 \arguments{
 \item{truth}{(\link{factor})\cr
@@ -436,7 +291,7 @@ Statistics in medicine. 2011;30(10):1105-1117. \url{https://doi.org/10.1002/sim.
 
 H. Uno et al.
 \emph{Evaluating Prediction Rules for T-Year Survivors with Censored Regression Models}
-Journal of the American Statistical Association 102, no. 478 (2007): 527-37. \url{https://www.jstor.org/stable/27639883}.
+Journal of the American Statistical Association 102, no. 478 (2007): 527-37.
 }
 \seealso{
 Other performance: 
